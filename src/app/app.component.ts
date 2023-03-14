@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
@@ -13,6 +13,10 @@ export class AppComponent {
   data = [];
   timeLeft = 60;
   interval: any;
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
   constructor(
     private http: HttpClient
@@ -37,7 +41,7 @@ export class AppComponent {
       value: status
     }
 
-    this.http.put<any>(this.apiUrl + "1", valores).subscribe(data => {
+    this.http.put<any>(this.apiUrl + "1", valores, this.httpOptions).subscribe(data => {
       this.data = data;
       this.getData();
     });
